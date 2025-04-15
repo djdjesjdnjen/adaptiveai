@@ -156,7 +156,7 @@ const ProjectSpecification = () => {
                     { title: "Documentation Package", description: "Complete technical and user documentation" },
                     { title: "Training Materials", description: "Resources for maintenance team" },
                     { title: "Security Audit Report", description: "Comprehensive security assessment" },
-                    { title: "Performance Benchmark Report", description: "Baseline and improvement metrics" },
+                    { title: "Performance Benchmark Report", description: "Baseline and improvement metrics" }
                   ].map((item, i) => (
                     <Card key={i} className="border shadow-sm">
                       <CardHeader className="pb-2">
@@ -438,8 +438,8 @@ const ProjectSpecification = () => {
                       <ul className="list-disc pl-6 space-y-1 text-sm text-gray-700">
                         <li>Multi-region failover capability</li>
                         <li>Regular backup and restore testing</li>
-                        <li>Recovery time objectives (RTO) < 15 minutes</li>
-                        <li>Recovery point objectives (RPO) < 5 minutes</li>
+                        <li>Recovery time objectives (RTO) &lt; 15 minutes</li>
+                        <li>Recovery point objectives (RPO) &lt; 5 minutes</li>
                       </ul>
                     </CardContent>
                   </Card>

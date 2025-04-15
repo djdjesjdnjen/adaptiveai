@@ -63,3 +63,27 @@ export const hasAnalyticsConsent = (): boolean => {
 export const saveAnalyticsConsent = (hasConsent: boolean): void => {
   localStorage.setItem('analyticsConsent', hasConsent ? 'true' : 'false');
 };
+
+// Initialize analytics tracking for a page
+export const initPageAnalytics = (pageName: string): (() => void) => {
+  // Track the page view
+  trackPageView(pageName);
+  
+  // Start session timer
+  const endSession = startSessionTimer();
+  
+  // Start scroll tracking
+  const getScrollDepth = initScrollTracking();
+  
+  // Return cleanup function
+  return () => {
+    const sessionDuration = endSession();
+    const maxScrollDepth = getScrollDepth();
+    
+    console.log(`Analytics summary for ${pageName}:`, {
+      sessionDuration,
+      maxScrollDepth
+    });
+    // In a real implementation, this would send final data to your analytics backend
+  };
+};
