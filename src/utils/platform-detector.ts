@@ -18,21 +18,43 @@ export function detectPlatform(): PlatformInfo {
     if (!result) {
       throw new Error('Failed to parse user agent');
     }
-  
-  return {
-    os: result.os?.name || 'Unknown',
-    browser: result.browser?.name || 'Unknown',
-    device: result.device?.type || 'desktop',
-    isMobile: /mobile|tablet|phone/i.test(result.device?.type || '') || window.innerWidth < 768,
-    isBot: /bot|crawler|spider|crawling/i.test(navigator?.userAgent || ''),
-    isDesktop: !(/mobile|tablet|phone/i.test(result.device?.type || '') || window.innerWidth < 768)
-  } satisfies PlatformInfo;
+
+    const isMobileDevice = /mobile|tablet|phone/i.test(result.device?.type || '') || 
+      (typeof window !== 'undefined' && window.innerWidth < 768);
+    
+    return {
+      os: result.os?.name || 'Unknown',
+      browser: result.browser?.name || 'Unknown',
+      device: result.device?.type || 'desktop',
+      isMobile: isMobileDevice,
+      isBot: /bot|crawler|spider|crawling/i.test(navigator?.userAgent || ''),
+      isDesktop: !isMobileDevice
+    };
+  } catch (error) {
+    console.error('Platform detection error:', error);
+    return {
+      os: 'Unknown',
+      browser: 'Unknown',
+      device: 'desktop',
+      isMobile: false,
+      isBot: false,
+      isDesktop: true
+    };
+  }
 }
 
 export function isSecureContext(): boolean {
-  return window.isSecureContext;
+  try {
+    return window.isSecureContext;
+  } catch {
+    return false;
+  }
 }
 
 export function hasValidTouchSupport(): boolean {
-  return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  try {
+    return 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+  } catch {
+    return false;
+  }
 }
