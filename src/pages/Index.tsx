@@ -1,4 +1,3 @@
-
 import React, { useEffect } from 'react';
 import { useAnalytics } from '@/hooks/useAnalytics';
 import { trackPageView, startSessionTimer, initScrollTracking } from '@/utils/analytics';
@@ -11,20 +10,43 @@ import MLInsights from '@/components/MLInsights';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { Button } from '@/components/ui/button';
 import { Calendar, Download, BarChart3 } from 'lucide-react';
+import ExportOptions from '@/components/Dashboard/ExportOptions'; // Added import
+
+
+// Added ErrorBoundary component
+const ErrorBoundary = ({ children }) => {
+  const [hasError, setHasError] = React.useState(false);
+
+  React.useEffect(() => {
+    // Optional: Log the error to a service like Sentry or Rollbar
+    console.error("Error in ErrorBoundary");
+  }, [hasError]);
+
+  if (hasError) {
+    return (
+      <div>
+        <h1>Something went wrong.</h1>
+      </div>
+    );
+  }
+
+  return <>{children}</>;
+};
+
 
 const Index = () => {
   const { userBehaviorData, performanceData, isLoading, error } = useAnalytics();
-  
+
   useEffect(() => {
     // Start tracking the current page view
     trackPageView('/dashboard');
-    
+
     // Start session timer
     const endSession = startSessionTimer();
-    
+
     // Initialize scroll tracking
     const getScrollDepth = initScrollTracking();
-    
+
     // Clean up
     return () => {
       const sessionDuration = endSession();
@@ -36,7 +58,7 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
-      
+
       <div className="container pt-20 pb-10 px-4 mx-auto">
         <header className="mt-8">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
@@ -46,7 +68,7 @@ const Index = () => {
                 Real-time analytics and ML-driven insights to optimize your website experience
               </p>
             </div>
-            
+
             <div className="flex space-x-2 mt-4 md:mt-0">
               <Button variant="outline" size="sm" className="flex items-center">
                 <Calendar className="h-4 w-4 mr-2" />
@@ -58,14 +80,14 @@ const Index = () => {
               </Button>
             </div>
           </div>
-          
+
           {error && (
             <div className="bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded mb-6">
               {error}
             </div>
           )}
         </header>
-        
+
         <Tabs defaultValue="analytics" className="space-y-6">
           <TabsList className="mb-4">
             <TabsTrigger value="analytics" className="flex items-center">
@@ -75,29 +97,31 @@ const Index = () => {
             <TabsTrigger value="insights">ML Insights</TabsTrigger>
             <TabsTrigger value="documentation">Documentation</TabsTrigger>
           </TabsList>
-          
+
           <TabsContent value="analytics" className="space-y-6">
-            <AnalyticsOverview data={userBehaviorData} isLoading={isLoading} />
-            
+            <ErrorBoundary> {/* Wrapped AnalyticsOverview with ErrorBoundary */}
+              <AnalyticsOverview data={userBehaviorData} isLoading={isLoading} />
+            </ErrorBoundary>
+
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
               <div className="lg:col-span-2">
                 <UserBehaviorChart data={userBehaviorData} isLoading={isLoading} />
               </div>
-              
+
               <div>
                 <PerformanceMetrics data={performanceData} isLoading={isLoading} />
               </div>
             </div>
           </TabsContent>
-          
+
           <TabsContent value="insights">
             <MLInsights />
           </TabsContent>
-          
+
           <TabsContent value="documentation">
             <div className="bg-white p-6 rounded-lg border border-gray-200">
               <h2 className="text-xl font-bold mb-4">Project Documentation</h2>
-              
+
               <div className="space-y-6">
                 <div>
                   <h3 className="text-lg font-medium mb-2">Technical Architecture</h3>
@@ -107,7 +131,7 @@ const Index = () => {
                     the user experience based on behavior patterns.
                   </p>
                 </div>
-                
+
                 <div>
                   <h3 className="text-lg font-medium mb-2">Key Components</h3>
                   <ul className="list-disc pl-5 space-y-2 text-gray-600">
@@ -117,7 +141,7 @@ const Index = () => {
                     <li><span className="font-medium">Privacy Compliance:</span> GDPR-compliant data handling with consent management</li>
                   </ul>
                 </div>
-                
+
                 <div>
                   <h3 className="text-lg font-medium mb-2">Performance Metrics</h3>
                   <p className="text-gray-600">
@@ -132,7 +156,7 @@ const Index = () => {
                     <li>99.9% uptime</li>
                   </ul>
                 </div>
-                
+
                 <div className="bg-gray-50 p-4 rounded-md border border-gray-200">
                   <h3 className="text-lg font-medium mb-2">Implementation Timeline</h3>
                   <div className="space-y-3">
@@ -163,7 +187,7 @@ const Index = () => {
           </TabsContent>
         </Tabs>
       </div>
-      
+
       <ConsentBanner />
     </div>
   );

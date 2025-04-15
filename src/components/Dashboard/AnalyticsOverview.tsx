@@ -2,7 +2,7 @@ import React from 'react';
 import { UserBehaviorData } from '@/hooks/useAnalytics';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ArrowUpRight, ArrowDownRight, Users, Clock, MousePointer, BarChart } from 'lucide-react';
-import ExportOptions from '@/components/Dashboard/ExportOptions'; // Added import statement
+import ExportOptions from '@/components/Dashboard/ExportOptions';
 
 interface AnalyticsOverviewProps {
   data: UserBehaviorData | null;
@@ -12,16 +12,16 @@ interface AnalyticsOverviewProps {
 const AnalyticsOverview: React.FC<AnalyticsOverviewProps> = ({ data, isLoading }) => {
   if (isLoading) {
     return (
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4"> {/* Updated grid for better mobile layout */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4">
         {[1, 2, 3, 4].map(i => (
           <Card key={i} className="animate-pulse">
             <CardHeader className="pb-2">
-              <CardTitle className="h-6 bg-gray-200 rounded w-full"></CardTitle> {/* Made width full for mobile */}
-              <CardDescription className="h-4 bg-gray-100 rounded w-full"></CardDescription> {/* Made width full for mobile */}
+              <CardTitle className="h-6 bg-gray-200 rounded w-full"></CardTitle>
+              <CardDescription className="h-4 bg-gray-100 rounded w-full"></CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="h-10 bg-gray-200 rounded w-full"></div> {/* Made width full for mobile */}
-              <div className="h-4 bg-gray-100 rounded w-full mt-2"></div> {/* Made width full for mobile */}
+              <div className="h-10 bg-gray-200 rounded w-full"></div>
+              <div className="h-4 bg-gray-100 rounded w-full mt-2"></div>
             </CardContent>
           </Card>
         ))}
@@ -76,9 +76,9 @@ const AnalyticsOverview: React.FC<AnalyticsOverviewProps> = ({ data, isLoading }
 
   return (
     <>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 animate-fade-in"> {/* Updated grid for better mobile layout */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 animate-fade-in">
       {metrics.map((metric, index) => (
-        <Card key={index} className="shadow-md bg-gradient-to-br from-white to-gray-50 hover:from-gray-50 hover:to-white transition-all duration-300"> {/* Added shadow for better visual separation on mobile */}
+        <Card key={index} className="shadow-md bg-gradient-to-br from-white to-gray-50 hover:from-gray-50 hover:to-white transition-all duration-300">
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
               <CardTitle className="text-sm font-medium">{metric.title}</CardTitle>
@@ -86,7 +86,7 @@ const AnalyticsOverview: React.FC<AnalyticsOverviewProps> = ({ data, isLoading }
             </div>
           </CardHeader>
           <CardContent>
-            <div className="text-lg font-bold">{metric.value}</div> {/* Reduced text size for better mobile view */}
+            <div className="text-lg font-bold">{metric.value}</div>
             <p className={`text-xs flex items-center ${metric.positive ? 'text-green-600' : 'text-red-600'}`}>
               {metric.positive ? (
                 <ArrowUpRight className="h-3 w-3 mr-1" />

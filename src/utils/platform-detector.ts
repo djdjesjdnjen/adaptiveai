@@ -17,9 +17,10 @@ export function detectPlatform(): PlatformInfo {
     os: result.os?.name || 'Unknown',
     browser: result.browser?.name || 'Unknown',
     device: result.device?.type || 'desktop',
-    isMobile: /mobile|tablet|phone/i.test(result.device?.type || ''),
-    isBot: /bot|crawler|spider|crawling/i.test(navigator?.userAgent || '')
-  };
+    isMobile: /mobile|tablet|phone/i.test(result.device?.type || '') || window.innerWidth < 768,
+    isBot: /bot|crawler|spider|crawling/i.test(navigator?.userAgent || ''),
+    isDesktop: !(/mobile|tablet|phone/i.test(result.device?.type || '') || window.innerWidth < 768)
+  } as const;
 }
 
 export function isSecureContext(): boolean {
