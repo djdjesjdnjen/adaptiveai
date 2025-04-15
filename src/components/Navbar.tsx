@@ -54,10 +54,22 @@ const Navbar = () => {
               >
                 {theme === 'light' ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
               </button>
-              <button type="button" className="relative p-2 text-gray-500 hover:text-primary">
-                <Bell className="h-5 w-5" />
-                <span className="absolute top-1 right-1 block h-2 w-2 rounded-full bg-red-500"></span>
-              </button>
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button type="button" className="relative p-2 text-gray-500 hover:text-primary">
+                    <Bell className="h-5 w-5" />
+                    <span className="absolute top-1 right-1 block h-2 w-2 rounded-full bg-red-500"></span>
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-80">
+                  <div className="flex flex-col gap-2 p-4">
+                    <h3 className="font-semibold">Notifications</h3>
+                    <div className="text-sm text-gray-500">
+                      No new notifications
+                    </div>
+                  </div>
+                </DropdownMenuContent>
+              </DropdownMenu>
               
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
