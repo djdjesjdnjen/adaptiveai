@@ -14,11 +14,11 @@ export function detectPlatform(): PlatformInfo {
   const result = parser.getResult();
   
   return {
-    os: result.os.name || 'Unknown',
-    browser: result.browser.name || 'Unknown',
-    device: result.device.type || 'desktop',
-    isMobile: /mobile|tablet|phone/i.test(result.device.type || ''),
-    isBot: /bot|crawler|spider|crawling/i.test(navigator.userAgent)
+    os: result.os?.name || 'Unknown',
+    browser: result.browser?.name || 'Unknown',
+    device: result.device?.type || 'desktop',
+    isMobile: /mobile|tablet|phone/i.test(result.device?.type || ''),
+    isBot: /bot|crawler|spider|crawling/i.test(navigator?.userAgent || '')
   };
 }
 

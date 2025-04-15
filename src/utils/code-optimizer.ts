@@ -52,7 +52,9 @@ export class CodeOptimizer {
   ];
 
   static collectMetrics() {
-    const loadTime = window.performance.timing.loadEventEnd - window.performance.timing.navigationStart;
+    const loadTime = window.performance?.timing?.loadEventEnd && window.performance?.timing?.navigationStart
+      ? window.performance.timing.loadEventEnd - window.performance.timing.navigationStart
+      : 0;
     const resourceCount = performance.getEntriesByType('resource').length;
     const memoryUsage = (performance as any).memory?.usedJSHeapSize || 0;
     const cpuUsage = (performance as any).cpu?.usage || 0;
