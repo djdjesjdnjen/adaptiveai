@@ -124,8 +124,7 @@ const PerformanceMetrics: React.FC<PerformanceMetricsProps> = ({ data, isLoading
                 </div>
                 <Progress 
                   value={item.value} 
-                  className="h-2" 
-                  indicatorClassName={getProgressColor(uptimeStatus)}
+                  className={`h-2 ${getProgressColor(uptimeStatus)}`}
                 />
               </div>
             );
@@ -147,8 +146,7 @@ const PerformanceMetrics: React.FC<PerformanceMetricsProps> = ({ data, isLoading
               </div>
               <Progress 
                 value={progressValue} 
-                className="h-2" 
-                indicatorClassName={getProgressColor(status)}
+                className={`h-2 ${getProgressColor(status)}`}
               />
             </div>
           );
