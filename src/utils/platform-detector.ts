@@ -7,6 +7,7 @@ export interface PlatformInfo {
   device: string;
   isMobile: boolean;
   isBot: boolean;
+  isDesktop: boolean;
 }
 
 export function detectPlatform(): PlatformInfo {
