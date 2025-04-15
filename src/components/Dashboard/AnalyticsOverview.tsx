@@ -74,9 +74,10 @@ const AnalyticsOverview: React.FC<AnalyticsOverviewProps> = ({ data, isLoading }
   ];
 
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 animate-fade-in"> {/* Updated grid for better mobile layout */}
+    <>
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-4 animate-fade-in"> {/* Updated grid for better mobile layout */}
       {metrics.map((metric, index) => (
-        <Card key={index} className="shadow-md"> {/* Added shadow for better visual separation on mobile */}
+        <Card key={index} className="shadow-md bg-gradient-to-br from-white to-gray-50 hover:from-gray-50 hover:to-white transition-all duration-300"> {/* Added shadow for better visual separation on mobile */}
           <CardHeader className="pb-2">
             <div className="flex items-center justify-between">
               <CardTitle className="text-sm font-medium">{metric.title}</CardTitle>
@@ -97,6 +98,10 @@ const AnalyticsOverview: React.FC<AnalyticsOverviewProps> = ({ data, isLoading }
         </Card>
       ))}
     </div>
+    <div className="mt-4">
+      <ExportOptions />
+    </div>
+    </>
   );
 };
 

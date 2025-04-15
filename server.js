@@ -16,7 +16,15 @@ const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100 // limit each IP to 100 requests per windowMs
 });
+// Global rate limit
 app.use(limiter);
+
+// Stricter limit for sensitive routes
+const authLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 5
+});
+app.use('/grant-root-access', authLimiter);
 
 // Routes with error handling
 app.post('/grant-root-access', async (req, res, next) => {
