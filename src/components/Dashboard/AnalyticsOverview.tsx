@@ -2,6 +2,7 @@ import React from 'react';
 import { UserBehaviorData } from '@/hooks/useAnalytics';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { ArrowUpRight, ArrowDownRight, Users, Clock, MousePointer, BarChart } from 'lucide-react';
+import ExportOptions from './ExportOptions'; // Added import statement
 
 interface AnalyticsOverviewProps {
   data: UserBehaviorData | null;
