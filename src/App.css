@@ -40,3 +40,21 @@
 .read-the-docs {
   color: #888;
 }
+
+.app-container.mobile {
+  font-size: 14px;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.app-container.desktop {
+  font-size: 16px;
+}
+
+.platform-info {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  font-size: 12px;
+  opacity: 0.7;
+}
