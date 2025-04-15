@@ -48,6 +48,12 @@ export const initScrollTracking = () => {
   };
 };
 
+// Track feature usage
+export const trackFeatureUsage = (feature: string, action: string, metadata?: Record<string, any>) => {
+  console.log(`Feature usage: ${feature} - ${action}`, metadata || {});
+  // In a real implementation, this would send data to your analytics backend
+};
+
 // Check if user has granted consent for analytics
 export const hasAnalyticsConsent = (): boolean => {
   return localStorage.getItem('analyticsConsent') === 'true';
