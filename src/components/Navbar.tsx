@@ -1,7 +1,8 @@
 
 import React from 'react';
-import { Bell, ChevronDown, User, LogOut } from 'lucide-react';
+import { Bell, ChevronDown, User, LogOut, Moon, Sun } from 'lucide-react';
 import { useAuth } from '@/providers/AuthProvider';
+import { useTheme } from '@/providers/ThemeProvider';
 import { useNavigate } from 'react-router-dom';
 import { supabase } from '@/integrations/supabase/client';
 import { 
@@ -14,6 +15,7 @@ import { Button } from '@/components/ui/button';
 
 const Navbar = () => {
   const { user } = useAuth();
+  const { theme, toggleTheme } = useTheme();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -45,6 +47,13 @@ const Navbar = () => {
         <div className="flex items-center space-x-3">
           {user ? (
             <>
+              <button 
+                type="button" 
+                onClick={toggleTheme}
+                className="p-2 text-gray-500 hover:text-primary"
+              >
+                {theme === 'light' ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
+              </button>
               <button type="button" className="relative p-2 text-gray-500 hover:text-primary">
                 <Bell className="h-5 w-5" />
                 <span className="absolute top-1 right-1 block h-2 w-2 rounded-full bg-red-500"></span>
