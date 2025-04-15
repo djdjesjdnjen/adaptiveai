@@ -10,8 +10,13 @@ export interface PlatformInfo {
 }
 
 export function detectPlatform(): PlatformInfo {
-  const parser = new UAParser();
-  const result = parser.getResult();
+  try {
+    const parser = new UAParser();
+    const result = parser.getResult();
+    
+    if (!result) {
+      throw new Error('Failed to parse user agent');
+    }
   
   return {
     os: result.os?.name || 'Unknown',
@@ -20,7 +25,7 @@ export function detectPlatform(): PlatformInfo {
     isMobile: /mobile|tablet|phone/i.test(result.device?.type || '') || window.innerWidth < 768,
     isBot: /bot|crawler|spider|crawling/i.test(navigator?.userAgent || ''),
     isDesktop: !(/mobile|tablet|phone/i.test(result.device?.type || '') || window.innerWidth < 768)
-  } as const;
+  } satisfies PlatformInfo;
 }
 
 export function isSecureContext(): boolean {

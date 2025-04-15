@@ -1,31 +1,29 @@
 
 import React from 'react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { Download, FileJson, FileSpreadsheet } from 'lucide-react';
+import { Download } from 'lucide-react';
 
-const ExportOptions = () => {
-  const handleExport = (format: 'csv' | 'json') => {
-    // TODO: Implement export logic
-    console.log(`Exporting as ${format}`);
+const ExportOptions: React.FC = () => {
+  const handleExport = (format: 'csv' | 'json' | 'pdf') => {
+    console.log(`Exporting in ${format} format`);
+    // Implement export logic here
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle className="text-sm font-medium">Export Data</CardTitle>
-      </CardHeader>
-      <CardContent className="flex gap-2">
-        <Button variant="outline" size="sm" onClick={() => handleExport('csv')}>
-          <FileSpreadsheet className="h-4 w-4 mr-2" />
-          CSV
-        </Button>
-        <Button variant="outline" size="sm" onClick={() => handleExport('json')}>
-          <FileJson className="h-4 w-4 mr-2" />
-          JSON
-        </Button>
-      </CardContent>
-    </Card>
+    <div className="flex gap-2">
+      <Button variant="outline" size="sm" onClick={() => handleExport('csv')}>
+        <Download className="h-4 w-4 mr-2" />
+        CSV
+      </Button>
+      <Button variant="outline" size="sm" onClick={() => handleExport('json')}>
+        <Download className="h-4 w-4 mr-2" />
+        JSON
+      </Button>
+      <Button variant="outline" size="sm" onClick={() => handleExport('pdf')}>
+        <Download className="h-4 w-4 mr-2" />
+        PDF
+      </Button>
+    </div>
   );
 };
 

@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 
 // Types for our analytics data
@@ -78,30 +77,34 @@ export const useAnalytics = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
+    let mounted = true;
+
     const fetchData = async () => {
       try {
         setIsLoading(true);
         const behaviorData = await fetchAnalyticsData();
         const perfData = await fetchPerformanceData();
-        
-        setUserBehaviorData(behaviorData);
-        setPerformanceData(perfData);
+        if (mounted) {
+          setUserBehaviorData(behaviorData);
+          setPerformanceData(perfData);
+        }
         setError(null);
       } catch (err) {
-        console.error('Error fetching analytics data:', err);
-        setError('Failed to load analytics data');
+        if (mounted) {
+          console.error('Error fetching analytics data:', err);
+          setError('Failed to load analytics data');
+        }
       } finally {
-        setIsLoading(false);
+        if (mounted) {
+          setIsLoading(false);
+        }
       }
     };
 
     fetchData();
-    
-    // In a real implementation, you might set up event listeners here
-    // to track user behavior on the current page
-    
+
     return () => {
-      // Clean up event listeners
+      mounted = false;
     };
   }, []);
 
