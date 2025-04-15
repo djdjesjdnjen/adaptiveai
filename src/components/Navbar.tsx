@@ -1,14 +1,26 @@
 
 import React from 'react';
-import { Bell, ChevronDown, User } from 'lucide-react';
+import { Bell, ChevronDown, User, LogOut } from 'lucide-react';
+import { useAuth } from '@/providers/AuthProvider';
+import { useNavigate } from 'react-router-dom';
+import { supabase } from '@/integrations/supabase/client';
 import { 
   DropdownMenu, 
   DropdownMenuContent, 
   DropdownMenuItem, 
   DropdownMenuTrigger 
 } from "@/components/ui/dropdown-menu";
+import { Button } from '@/components/ui/button';
 
 const Navbar = () => {
+  const { user } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await supabase.auth.signOut();
+    navigate('/auth');
+  };
+
   return (
     <nav className="bg-white border-b border-gray-200 px-4 py-2.5 fixed w-full z-50">
       <div className="flex flex-wrap justify-between items-center">
@@ -31,27 +43,36 @@ const Navbar = () => {
         </div>
         
         <div className="flex items-center space-x-3">
-          <button type="button" className="relative p-2 text-gray-500 hover:text-primary">
-            <Bell className="h-5 w-5" />
-            <span className="absolute top-1 right-1 block h-2 w-2 rounded-full bg-red-500"></span>
-          </button>
-          
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <button className="flex items-center text-sm rounded-full focus:ring-4 focus:ring-gray-100">
-                <div className="bg-gray-200 p-2 rounded-full">
-                  <User className="h-5 w-5 text-gray-600" />
-                </div>
-                <span className="hidden md:block ml-2 mr-1 text-gray-700">Admin User</span>
-                <ChevronDown className="hidden md:block h-4 w-4 text-gray-500" />
+          {user ? (
+            <>
+              <button type="button" className="relative p-2 text-gray-500 hover:text-primary">
+                <Bell className="h-5 w-5" />
+                <span className="absolute top-1 right-1 block h-2 w-2 rounded-full bg-red-500"></span>
               </button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-56">
-              <DropdownMenuItem>Profile Settings</DropdownMenuItem>
-              <DropdownMenuItem>System Preferences</DropdownMenuItem>
-              <DropdownMenuItem>Sign out</DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
+              
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button className="flex items-center text-sm rounded-full focus:ring-4 focus:ring-gray-100">
+                    <div className="bg-gray-200 p-2 rounded-full">
+                      <User className="h-5 w-5 text-gray-600" />
+                    </div>
+                    <span className="hidden md:block ml-2 mr-1 text-gray-700">{user.email}</span>
+                    <ChevronDown className="hidden md:block h-4 w-4 text-gray-500" />
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56">
+                  <DropdownMenuItem>Profile Settings</DropdownMenuItem>
+                  <DropdownMenuItem>System Preferences</DropdownMenuItem>
+                  <DropdownMenuItem onClick={handleLogout}>
+                    <LogOut className="mr-2 h-4 w-4" />
+                    Sign out
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            </>
+          ) : (
+            <Button onClick={() => navigate('/auth')}>Sign In</Button>
+          )}
         </div>
       </div>
     </nav>
