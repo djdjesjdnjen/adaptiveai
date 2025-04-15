@@ -14,24 +14,7 @@ import ExportOptions from '@/components/Dashboard/ExportOptions'; // Added impor
 
 
 // Added ErrorBoundary component
-const ErrorBoundary = ({ children }) => {
-  const [hasError, setHasError] = React.useState(false);
-
-  React.useEffect(() => {
-    // Optional: Log the error to a service like Sentry or Rollbar
-    console.error("Error in ErrorBoundary");
-  }, [hasError]);
-
-  if (hasError) {
-    return (
-      <div>
-        <h1>Something went wrong.</h1>
-      </div>
-    );
-  }
-
-  return <>{children}</>;
-};
+import { ErrorBoundary } from '@/components/ErrorBoundary';
 
 
 const Index = () => {

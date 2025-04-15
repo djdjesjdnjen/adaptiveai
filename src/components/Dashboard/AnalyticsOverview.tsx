@@ -3,7 +3,7 @@ import React from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { UserBehaviorData } from '@/hooks/useAnalytics';
 import ExportOptions from './ExportOptions';
-import { Activity, Users, MousePointer } from 'lucide-react';
+import { Activity, Users, MousePointer, Download } from 'lucide-react';
 
 interface Props {
   data: UserBehaviorData | null;
