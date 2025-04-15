@@ -50,7 +50,8 @@ const Navbar = () => {
               <button 
                 type="button" 
                 onClick={toggleTheme}
-                className="p-2 text-gray-500 hover:text-primary"
+                className="p-2 text-gray-500 hover:text-primary transition-colors"
+                aria-label="Toggle theme"
               >
                 {theme === 'light' ? <Moon className="h-5 w-5" /> : <Sun className="h-5 w-5" />}
               </button>

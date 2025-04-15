@@ -16,9 +16,12 @@ const ThemeProviderContext = createContext<ThemeProviderState | undefined>(undef
 
 export function ThemeProvider({ children }: ThemeProviderProps) {
   const [theme, setTheme] = useState<Theme>(() => {
-    const stored = localStorage.getItem("theme");
-    if (stored === "light" || stored === "dark") return stored;
-    return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem("theme") as Theme;
+      if (stored === "light" || stored === "dark") return stored;
+      return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+    return "light";
   });
 
   useEffect(() => {
@@ -29,7 +32,7 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
   }, [theme]);
 
   const toggleTheme = () => {
-    setTheme(prev => prev === "light" ? "dark" : "light");
+    setTheme(theme === "light" ? "dark" : "light");
   };
 
   return (
