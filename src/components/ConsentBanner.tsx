@@ -32,7 +32,7 @@ const ConsentBanner: React.FC = () => {
   
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 shadow-lg z-50 animate-fade-in">
-      <div className="container mx-auto flex flex-col md:flex-row items-center justify-between">
+      <div className="container mx-auto flex flex-col md:flex-row items-center justify-between gap-4 px-4">
         <div className="flex items-start md:items-center mb-4 md:mb-0">
           <Shield className="h-6 w-6 text-primary mr-3 flex-shrink-0" />
           <div>

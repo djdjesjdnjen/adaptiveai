@@ -1,4 +1,3 @@
-
 import React, { useEffect, useRef } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { UserBehaviorData } from '@/hooks/useAnalytics';
@@ -25,25 +24,25 @@ const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#8884d8'];
 
 const UserBehaviorChart: React.FC<UserBehaviorChartProps> = ({ data, isLoading }) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  
+
   useEffect(() => {
     if (canvasRef.current && data && data.clickHeatmap.length > 0) {
       const canvas = canvasRef.current;
       const ctx = canvas.getContext('2d');
       if (!ctx) return;
-      
+
       // Clear the canvas
       ctx.clearRect(0, 0, canvas.width, canvas.height);
-      
+
       // Draw the heatmap points
       data.clickHeatmap.forEach(([x, y, intensity]) => {
         const radius = intensity / 5;
-        
+
         // Create a radial gradient
         const gradient = ctx.createRadialGradient(x, y, 0, x, y, radius);
         gradient.addColorStop(0, `rgba(37, 99, 235, ${intensity / 100})`);
         gradient.addColorStop(1, 'rgba(37, 99, 235, 0)');
-        
+
         // Draw the point
         ctx.beginPath();
         ctx.fillStyle = gradient;
@@ -75,7 +74,7 @@ const UserBehaviorChart: React.FC<UserBehaviorChartProps> = ({ data, isLoading }
       </div>
     );
   }
-  
+
   if (!data) {
     return (
       <Card>
@@ -96,7 +95,7 @@ const UserBehaviorChart: React.FC<UserBehaviorChartProps> = ({ data, isLoading }
           <CardTitle>User Engagement Trends</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="chart-container">
+          <div className="chart-container h-[200px] sm:h-[250px]">
             <ResponsiveContainer width="100%" height="100%">
               <AreaChart data={timeSeriesData} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
                 <CartesianGrid strokeDasharray="3 3" />
@@ -129,13 +128,13 @@ const UserBehaviorChart: React.FC<UserBehaviorChartProps> = ({ data, isLoading }
           </div>
         </CardContent>
       </Card>
-      
+
       <Card>
         <CardHeader>
           <CardTitle>Top Pages Distribution</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="chart-container">
+          <div className="chart-container h-[200px] sm:h-[250px]">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={data.topPages} layout="vertical" margin={{ top: 5, right: 30, left: 20, bottom: 5 }}>
                 <XAxis type="number" />
@@ -149,7 +148,7 @@ const UserBehaviorChart: React.FC<UserBehaviorChartProps> = ({ data, isLoading }
           </div>
         </CardContent>
       </Card>
-      
+
       <Card>
         <CardHeader>
           <CardTitle>Click Heatmap</CardTitle>
@@ -168,13 +167,13 @@ const UserBehaviorChart: React.FC<UserBehaviorChartProps> = ({ data, isLoading }
           </div>
         </CardContent>
       </Card>
-      
+
       <Card>
         <CardHeader>
           <CardTitle>User Journey Map</CardTitle>
         </CardHeader>
         <CardContent>
-          <div className="chart-container">
+          <div className="chart-container h-[200px] sm:h-[250px]">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
                 <Pie
